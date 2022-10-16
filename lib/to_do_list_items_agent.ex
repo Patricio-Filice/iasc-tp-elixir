@@ -8,12 +8,12 @@ defmodule ToDoList.Items.Agent do
   def child_spec do
     %{
       id: __MODULE__,
-      start: { __MODULE__, :start_link }
+      start: { __MODULE__, :start_link, [%{}] }
     }
   end
 
   def get(key) do
-    Agent.get(__MODULE__, &Map.get(&1, key))
+    Agent.get(__MODULE__, &Map.get(&1, key, %{}))
   end
 
   def put(key, value) do
