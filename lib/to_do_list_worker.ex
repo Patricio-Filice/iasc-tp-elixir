@@ -11,7 +11,6 @@ defmodule ToDoList.Worker do
 
   @impl true
   def init({ name }) do
-    {:via, Registry, {@to_do_list_registry, name}}
     tasks = ToDoList.Items.Agent.get(name) || %{}
     { :ok, { name, tasks } }
   end
