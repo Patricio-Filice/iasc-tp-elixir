@@ -8,7 +8,11 @@ defmodule ToDoList.GeneralSupervisor do
   def init(:ok) do
     children = [
       ToDoList.Worker.Supervisor,
-      ToDoList.Items.Agent
+      ToDoList.Items.Agent,
+      %{
+        id: Registry,
+        start: { Registry, :start_link, [:unique, :to_do_list_registry] }
+      }
     ]
     Supervisor.init(children, strategy: :one_for_one)
   end
